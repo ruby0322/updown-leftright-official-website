@@ -1,0 +1,221 @@
+{
+  "companyInfo": {
+    "name": "上下左兒童美術教室",
+    "description": "用愛心與專業，陪伴每個孩子探索藝術的美好世界",
+    "logo": {
+      "src": "/images/icons/circle.png",
+      "alt": "上下左兒童美術教室",
+      "width": 32,
+      "height": 32
+    }
+  },
+  "contactInfo": {
+    "address": "新北市新莊區頭成街 165 號 2 樓",
+    "phone": "0926-911-226",
+    "email": "vivian0401wu@gmail.com"
+  },
+  "scheduleInfo": {
+    "saturday": "09:00-11:00 / 14:00-16:00",
+    "sunday": "10:00-12:00",
+    "note": "歡迎預約體驗課程"
+  },
+  "copyright": "© 2025 上下左兒童美術教室. All rights reserved.",
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "小寶媽媽",
+      "role": "學生家長",
+      "text": "小卡老師非常有耐心，我家小寶從害羞不敢畫畫，到現在每天都期待上美術課！",
+      "avatar": "媽",
+      "bgColor": "bg-brand-secondary-200",
+      "textColor": "text-brand-secondary-700",
+      "rating": 5,
+      "displayOrder": 1
+    },
+    {
+      "id": "2",
+      "name": "小花爸爸",
+      "role": "學生家長",
+      "text": "老師會根據每個孩子的特質調整教學方式，讓孩子在快樂中學習藝術。",
+      "avatar": "爸",
+      "bgColor": "bg-brand-secondary-200",
+      "textColor": "text-brand-secondary-700",
+      "rating": 5,
+      "displayOrder": 2
+    },
+    {
+      "id": "3",
+      "name": "小明媽媽",
+      "role": "學生家長",
+      "text": "課程內容豐富有趣，孩子不只學會畫畫技巧，更重要的是培養了創造力！",
+      "avatar": "媽",
+      "bgColor": "bg-brand-secondary-200",
+      "textColor": "text-brand-secondary-700",
+      "rating": 5,
+      "displayOrder": 3
+    }
+  ],
+  "courseRecords": {
+    "teaching": [
+      {
+        "id": "1",
+        "title": "學生專心作畫",
+        "description": "孩子們沉浸在創作的世界中，每個人都專注於自己的作品，展現出對藝術的熱愛。",
+        "imageUrl": "/placeholder.svg?height=400&width=800",
+        "altText": "學生專心作畫",
+        "displayOrder": 1
+      },
+      {
+        "id": "2",
+        "title": "老師耐心指導",
+        "description": "小卡老師細心教導每位學生，根據每個孩子的特質給予個別化的指導。",
+        "imageUrl": "/placeholder.svg?height=400&width=800",
+        "altText": "老師指導學生",
+        "displayOrder": 2
+      },
+      {
+        "id": "3",
+        "title": "快樂的上課時光",
+        "description": "充滿歡笑的美術課堂，孩子們在輕鬆愉快的氛圍中學習和創作。",
+        "imageUrl": "/placeholder.svg?height=400&width=800",
+        "altText": "快樂的上課時光",
+        "displayOrder": 3
+      }
+    ],
+    "classPhotos": [
+      {
+        "id": "1",
+        "title": "創作討論時間",
+        "description": "孩子們圍成圓圈，分享自己的創作想法和靈感。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮1",
+        "altText": "課堂花絮 1",
+        "displayOrder": 1
+      },
+      {
+        "id": "2",
+        "title": "材料準備",
+        "description": "老師和學生一起準備今天的創作材料。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮2",
+        "altText": "課堂花絮 2",
+        "displayOrder": 2
+      },
+      {
+        "id": "3",
+        "title": "作品展示",
+        "description": "學生們驕傲地展示自己完成的作品。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮3",
+        "altText": "課堂花絮 3",
+        "displayOrder": 3
+      },
+      {
+        "id": "4",
+        "title": "技法練習",
+        "description": "專注練習新的繪畫技法。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮4",
+        "altText": "課堂花絮 4",
+        "displayOrder": 4
+      },
+      {
+        "id": "5",
+        "title": "清潔時間",
+        "description": "課程結束後，大家一起整理教室。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮5",
+        "altText": "課堂花絮 5",
+        "displayOrder": 5
+      },
+      {
+        "id": "6",
+        "title": "成果分享",
+        "description": "每個人分享今天的學習心得。",
+        "imageUrl": "/placeholder.svg?height=300&width=300&text=課堂花絮6",
+        "altText": "課堂花絮 6",
+        "displayOrder": 6
+      }
+    ]
+  },
+  "studentWorks": [
+    {
+      "id": "1",
+      "title": "彩虹城堡",
+      "description": "小寶利用豐富的色彩創造了一座夢幻的彩虹城堡，展現了他對色彩的敏銳度和豐富的想像力。這幅作品使用了水彩技法，色彩層次豐富，構圖充滿童趣。",
+      "imageUrl": "/placeholder.svg?height=300&width=300",
+      "altText": "彩虹城堡",
+      "authorName": "小寶",
+      "authorAge": "6歲",
+      "technique": "水彩",
+      "isFeatured": true,
+      "displayOrder": 1
+    },
+    {
+      "id": "2",
+      "title": "快樂的小魚",
+      "description": "小花畫出了海底世界中快樂游動的小魚，細膩的筆觸和生動的表情展現了她對生命的觀察。作品中的魚兒表情豐富，海草搖曳，充滿生命力。",
+      "imageUrl": "/placeholder.svg?height=300&width=300",
+      "altText": "快樂的小魚",
+      "authorName": "小花",
+      "authorAge": "7歲",
+      "technique": "彩色筆",
+      "isFeatured": true,
+      "displayOrder": 2
+    },
+    {
+      "id": "3",
+      "title": "我的家人",
+      "description": "小明用溫暖的色調描繪了他的家人，畫面中充滿了愛與溫馨，表達了他對家人的深厚情感。每個家庭成員都畫得栩栩如生，展現了孩子對家庭的愛。",
+      "imageUrl": "/placeholder.svg?height=300&width=300",
+      "altText": "我的家人",
+      "authorName": "小明",
+      "authorAge": "8歲",
+      "technique": "蠟筆",
+      "isFeatured": true,
+      "displayOrder": 3
+    },
+    {
+      "id": "4",
+      "title": "春天的花園",
+      "description": "小卡細緻地描繪了春天花園中的各種花朵和昆蟲，展現了她對自然的熱愛和觀察力。作品中花朵種類豐富，蝴蝶翩翩起舞，充滿春天的氣息。",
+      "imageUrl": "/placeholder.svg?height=300&width=300",
+      "altText": "春天的花園",
+      "authorName": "小卡",
+      "authorAge": "9歲",
+      "technique": "水彩",
+      "isFeatured": true,
+      "displayOrder": 4
+    }
+  ],
+  "galleryHighlights": {
+    "hero": {
+      "id": "1",
+      "title": "探索我們的課程紀錄",
+      "description": "查看更多教學現場和學生作品",
+      "imageUrl": "/placeholder.svg?height=400&width=800",
+      "altText": "課程紀錄"
+    },
+    "previews": [
+      {
+        "id": "1",
+        "title": "教學現場",
+        "description": "專業的教學環境與方法",
+        "imageUrl": "/placeholder.svg?height=200&width=200",
+        "altText": "教學現場",
+        "displayOrder": 1
+      },
+      {
+        "id": "2",
+        "title": "學生作品",
+        "description": "孩子們的創意與成長",
+        "imageUrl": "/placeholder.svg?height=200&width=200",
+        "altText": "學生作品",
+        "displayOrder": 2
+      },
+      {
+        "id": "3",
+        "title": "課堂花絮",
+        "description": "快樂的學習時光",
+        "imageUrl": "/placeholder.svg?height=200&width=200",
+        "altText": "課堂花絮",
+        "displayOrder": 3
+      }
+    ]
+  }
+} 
