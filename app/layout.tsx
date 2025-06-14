@@ -26,6 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW" suppressHydrationWarning>
+      <meta
+        property="og:image"
+        content="/images/cover.jpg"
+      />
       <body className={`${geistSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
