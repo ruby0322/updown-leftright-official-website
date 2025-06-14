@@ -155,7 +155,6 @@ export type Database = {
     }
   }
 }
-
 type DefaultSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
@@ -266,3 +265,4 @@ export const Constants = {
     Enums: {},
   },
 } as const
+

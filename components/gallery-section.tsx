@@ -38,7 +38,7 @@ export default function GallerySection({ heroPhoto, previewItems }: GallerySecti
                 height={400}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <div className="rounded-xl absolute inset-0 bg-black/30 flex items-center justify-center">
                 <div className="text-center text-white p-6">
                   <h4 className="text-2xl font-bold mb-2">{heroPhoto.title}</h4>
                   <p className="mb-4">{heroPhoto.description}</p>

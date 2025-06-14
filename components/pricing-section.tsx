@@ -1,33 +1,66 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, MapPin } from "lucide-react";
+import { Clock, Home, MapPin, Users } from "lucide-react";
 
 export default function PricingSection() {
   const schedules = [
-    { name: "週六上午班", time: "09:00 - 11:00" },
-    { name: "週六下午班", time: "14:00 - 16:00" },
-    { name: "週日上午班", time: "10:00 - 12:00" },
+    { day: "週一", sessions: [
+      { time: "11:00 - 12:30", activity: "課程內容前一週 IG 公布" },
+      { time: "14:00 - 15:30", activity: "課程內容前一週 IG 公布" }
+    ]},
+    { day: "週二", sessions: [
+      { time: "11:00 - 12:30", activity: "課程內容前一週 IG 公布" },
+      { time: "14:00 - 15:30", activity: "課程內容前一週 IG 公布" }
+    ]},
+    { day: "週五", sessions: [
+      { time: "11:00 - 12:30", activity: "課程內容前一週 IG 公布" },
+      { time: "14:00 - 15:30", activity: "課程內容前一週 IG 公布" }
+    ]},
+    { day: "週六", sessions: [
+      { time: "11:00 - 12:30", activity: "課程內容前一週 IG 公布" },
+      { time: "14:00 - 15:30", activity: "課程內容前一週 IG 公布" }
+    ]},
   ];
 
   const pricingPlans = [
     {
-      title: "單堂體驗",
-      price: "NT$ 800",
-      description: "適合初次體驗的小朋友",
-      features: ["2小時完整課程", "包含所有材料費", "作品可帶回家"],
+      title: "到府一對一",
+      price: "NT$ 450／小時",
+      description: "專業老師到府授課，一對一指導",
+      features: [
+        "每小時 450 元", 
+        "交通費 200 元", 
+        "可多加一位 +150 元",
+        "客製化教學內容"
+      ],
+      badge: "個人專屬",
+      icon: <Home className="w-5 h-5" />
+    },
+    {
+      title: "多人成班 (3-4人)",
+      price: "NT$ 1,500 起",
+      description: "每堂課 1.5 小時，適合小團體學習",
+      features: [
+        "3人班：1,500 元/堂",
+        "4人班：1,720 元/堂", 
+        "平均每人 430-500 元",
+        "可選工作室或到府"
+      ],
       badge: "最受歡迎",
+      icon: <Users className="w-5 h-5" />
     },
     {
-      title: "月繳方案",
-      price: "NT$ 2,800",
-      description: "每月4堂課 (平均每堂700元)",
-      features: ["固定時段保證有位", "系統性學習規劃", "學習進度追蹤"],
-    },
-    {
-      title: "季繳優惠",
-      price: "NT$ 7,800",
-      description: "三個月12堂課 (平均每堂650元)",
-      features: ["最優惠的價格", "免費補課服務", "期末作品展示"],
+      title: "多人成班 (6-8人)",
+      price: "NT$ 2,100 起",
+      description: "大班制教學，更優惠的價格",
+      features: [
+        "6人班：2,100 元/堂",
+        "8人班：2,440 元/堂",
+        "平均每人 305-350 元", 
+        "團體互動學習"
+      ],
+      badge: "最優惠",
+      icon: <Users className="w-5 h-5" />
     },
   ];
 
@@ -42,14 +75,41 @@ export default function PricingSection() {
             <h4 className="text-2xl font-semibold text-foreground mb-6">每週課程時間</h4>
             <Card className="bg-card/80 backdrop-blur-sm">
               <CardContent className="p-6">
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {schedules.map((schedule, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-brand-primary-50 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <Clock className="w-5 h-5 text-brand-primary-400" />
-                        <span className="font-semibold text-brand-primary-400">{schedule.name}</span>
+                    <div key={index} className="border-b border-border/50 pb-3 last:border-b-0">
+                      <div className="font-semibold text-brand-primary-600 mb-2">{schedule.day}</div>
+                      <div className="space-y-2">
+                        {schedule.sessions.map((session, sessionIndex) => (
+                          <div key={sessionIndex} className={`flex items-center justify-between p-3 rounded-lg ${
+                            session.time === "休息" 
+                              ? "bg-muted/50" 
+                              : "bg-brand-primary-50"
+                          }`}>
+                            <div className="flex items-center gap-3">
+                              <Clock className={`w-4 h-4 ${
+                                session.time === "休息" 
+                                  ? "text-muted-foreground" 
+                                  : "text-brand-primary-400"
+                              }`} />
+                              <span className={`text-sm ${
+                                session.time === "休息" 
+                                  ? "text-muted-foreground" 
+                                  : "text-brand-primary-600"
+                              }`}>
+                                {session.time}
+                              </span>
+                            </div>
+                            <span className={`text-sm ${
+                              session.time === "休息" 
+                                ? "text-muted-foreground" 
+                                : "text-brand-primary-600"
+                            }`}>
+                              {session.activity}
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                      <span className="text-brand-primary-400">{schedule.time}</span>
                     </div>
                   ))}
                 </div>
@@ -58,7 +118,8 @@ export default function PricingSection() {
                     <MapPin className="w-4 h-4 text-muted-foreground" />
                     <span className="font-semibold text-foreground">上課地點</span>
                   </div>
-                  <p className="text-muted-foreground">台北市大安區和平東路二段123號2樓</p>
+                  <p className="text-muted-foreground">新北市新莊區頭成街 165 號 2 樓</p>
+                  <p className="text-sm text-muted-foreground mt-1">※ 也提供到府教學服務</p>
                 </div>
               </CardContent>
             </Card>
@@ -72,7 +133,10 @@ export default function PricingSection() {
                 <Card key={index} className="bg-card/90 backdrop-blur-sm border-border">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
-                      <span>{plan.title}</span>
+                      <div className="flex items-center gap-2">
+                        {plan.icon}
+                        <span>{plan.title}</span>
+                      </div>
                       {plan.badge && (
                         <Badge variant="secondary" className="bg-brand-primary-100 text-brand-primary-600">
                           {plan.badge}
@@ -91,6 +155,11 @@ export default function PricingSection() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+            <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-sm text-amber-800">
+                <strong>注意事項：</strong>每堂課程時長為 1.5 小時，可選擇工作室上課或到府教學服務。
+              </p>
             </div>
           </div>
         </div>

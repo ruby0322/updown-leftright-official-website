@@ -99,7 +99,7 @@ export function ImageViewer({ item, initialImageIndex = 0, isOpen, onClose }: Im
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-white/95 border-none overflow-hidden">
+      <DialogContent className="bg-transparent w-[85vw] max-h-[95vh] h-full p-0 border-none overflow-hidden">
         <DialogTitle asChild>
           <VisuallyHidden>
             {item.title || `Image ${currentImageIndex + 1} of ${sortedImages.length}`}
@@ -140,13 +140,13 @@ export function ImageViewer({ item, initialImageIndex = 0, isOpen, onClose }: Im
 
           {/* Image Container with Overlay Info */}
           <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-8">
-            <div className="relative max-w-full max-h-full">
+            <div className="relative max-w-full max-h-full bg-black">
               <Image
                 src={currentImage.image_url || "/placeholder.svg"}
                 alt={currentImage.alt_text || item.title}
                 width={1200}
                 height={800}
-                className="max-w-full max-h-[95vh] object-contain"
+                className="max-w-full max-h-[90vh] object-contain"
                 priority
               />
               
@@ -174,11 +174,18 @@ export function ImageViewer({ item, initialImageIndex = 0, isOpen, onClose }: Im
                         {item.description}
                       </p>
                     )}
-                    {sortedImages.length > 1 && (
-                      <p className="text-xs sm:text-sm text-gray-400 pt-2">
-                        {currentImageIndex + 1} / {sortedImages.length}
-                      </p>
-                    )}
+                    <div className="flex items-center justify-between pt-2">
+                      {sortedImages.length > 1 && (
+                        <p className="text-xs sm:text-sm text-gray-400">
+                          {currentImageIndex + 1} / {sortedImages.length}
+                        </p>
+                      )}
+                      {sortedImages.length > 1 && (
+                        <p className="text-xs text-gray-500 hidden sm:block">
+                          使用 ← → 鍵或點擊按鈕切換照片
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
@@ -221,19 +228,12 @@ export function ClickableImage({
     })
   }, [item?.images])
 
-  // Early return if no images available
-  if (!sortedImages.length) {
-    return null
-  }
-
   const image = sortedImages[imageIndex]
-  
-  if (!image) return null
 
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg cursor-pointer group transition-transform hover:scale-105",
+        "relative overflow-hidden cursor-pointer group",
         className,
       )}
       onClick={() => onImageClick?.(item, imageIndex)}
@@ -245,8 +245,31 @@ export function ClickableImage({
         height={height}
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors flex items-center justify-center">
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+      
+      {/* Text Overlay - visible by default, hidden on hover
+      {(item.title || item.description) && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-3 flex flex-col justify-end group-hover:opacity-0">
+          {item.title && (
+            <h4 className="text-white font-semibold text-sm leading-tight mb-1 truncate">
+              {item.title}
+            </h4>
+          )}
+          {item.description && (
+            <p className="text-gray-200 text-xs leading-relaxed overflow-hidden" style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical' as const,
+              textOverflow: 'ellipsis'
+            }}>
+              {item.description}
+            </p>
+          )}
+        </div>
+      )}
+       */}
+      {/* Hover Effect - magnifying glass icon */}
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 flex items-center justify-center">
+        <div className="opacity-0 group-hover:opacity-100">
           <div className="bg-white/90 rounded-full p-2">
             <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path

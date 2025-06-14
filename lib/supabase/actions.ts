@@ -1,10 +1,10 @@
 "use server"
 
 import type {
-    Item,
-    ItemWithImages,
-    Testimonial
-} from '@/types/database'
+  Item,
+  ItemWithImages,
+  Testimonial
+} from '@/types/models'
 import { createClient } from './server'
 
 /**
@@ -32,17 +32,16 @@ export async function getTestimonials(): Promise<Testimonial[]> {
 }
 
 /**
- * Get items by type with their images
+ * Get items by type with their images from storage
  */
 export async function getItems(type?: 'student_work' | 'teaching_photo' | 'class_photo', limit?: number): Promise<ItemWithImages[]> {
   try {
     const supabase = await createClient()
+    
+    // Get items
     let query = supabase
       .from('items')
-      .select(`
-        *,
-        images:item_images(*)
-      `)
+      .select('*')
       .eq('is_active', true)
       .order('display_order', { ascending: true })
 
@@ -54,14 +53,57 @@ export async function getItems(type?: 'student_work' | 'teaching_photo' | 'class
       query = query.limit(limit)
     }
 
-    const { data, error } = await query
+    const { data: items, error: itemsError } = await query
 
-    if (error) {
-      console.error('Error fetching items:', error)
+    if (itemsError || !items) {
+      console.error('Error fetching items:', itemsError)
       return []
     }
 
-    return (data as ItemWithImages[]) || []
+    // Get images for each item
+    const itemsWithImages = await Promise.all(
+      items.map(async (item) => {
+        const { data: files, error: storageError } = await supabase
+          .storage
+          .from('images')
+          .list(item.id)
+        console.log('files', files)
+
+        if (storageError) {
+          console.error(`Error fetching images for item ${item.id}:`, storageError)
+          return {
+            ...item,
+            images: []
+          }
+        }
+
+        const images = files.filter((file) => file.name !== '.emptyFolderPlaceholder').map((file, index) => {
+          const { data: { publicUrl } } = supabase
+            .storage
+            .from('images')
+            .getPublicUrl(`${item.id}/${file.name}`)
+          console.log(`${item.id}/${file.name}`)
+          console.log('publicUrl', publicUrl)
+          return {
+            id: `${item.id}-${index}`,
+            image_url: publicUrl,
+            alt_text: item.title,
+            is_primary: index === 0,
+            display_order: index,
+            item_id: item.id,
+            created_at: file.created_at,
+            updated_at: file.updated_at
+          }
+        })
+
+        return {
+          ...item,
+          images
+        }
+      })
+    )
+    console.log(itemsWithImages)
+    return itemsWithImages as ItemWithImages[]
   } catch (error) {
     console.error('Error in getItems:', error)
     return []
@@ -74,12 +116,11 @@ export async function getItems(type?: 'student_work' | 'teaching_photo' | 'class
 export async function getFeaturedItems(type?: 'student_work' | 'teaching_photo' | 'class_photo', limit?: number): Promise<ItemWithImages[]> {
   try {
     const supabase = await createClient()
+    
+    // Get items
     let query = supabase
       .from('items')
-      .select(`
-        *,
-        images:item_images(*)
-      `)
+      .select('*')
       .eq('is_active', true)
       .eq('is_featured', true)
       .order('display_order', { ascending: true })
@@ -92,14 +133,55 @@ export async function getFeaturedItems(type?: 'student_work' | 'teaching_photo' 
       query = query.limit(limit)
     }
 
-    const { data, error } = await query
+    const { data: items, error: itemsError } = await query
 
-    if (error) {
-      console.error('Error fetching featured items:', error)
+    if (itemsError || !items) {
+      console.error('Error fetching featured items:', itemsError)
       return []
     }
 
-    return (data as ItemWithImages[]) || []
+    // Get images for each item from storage
+    const itemsWithImages = await Promise.all(
+      items.map(async (item) => {
+        const { data: files, error: storageError } = await supabase
+          .storage
+          .from('images')
+          .list(item.id)
+
+        if (storageError) {
+          console.error(`Error fetching images for featured item ${item.id}:`, storageError)
+          return {
+            ...item,
+            images: []
+          }
+        }
+
+        const images = files.filter((file) => file.name !== '.emptyFolderPlaceholder').map((file, index) => {
+          const { data: { publicUrl } } = supabase
+            .storage
+            .from('images')
+            .getPublicUrl(`${item.id}/${file.name}`)
+          
+          return {
+            id: `${item.id}-${index}`,
+            image_url: publicUrl,
+            alt_text: item.title,
+            is_primary: index === 0,
+            display_order: index,
+            item_id: item.id,
+            created_at: file.created_at,
+            updated_at: file.updated_at
+          }
+        })
+
+        return {
+          ...item,
+          images
+        }
+      })
+    )
+
+    return itemsWithImages as ItemWithImages[]
   } catch (error) {
     console.error('Error in getFeaturedItems:', error)
     return []
@@ -152,27 +234,59 @@ export async function getFeaturedStudentWorks(limit?: number): Promise<ItemWithI
 }
 
 /**
- * Get a single item by ID with its images
+ * Get a single item by ID with its images from storage
  */
 export async function getItemById(id: string): Promise<ItemWithImages | null> {
   try {
     const supabase = await createClient()
-    const { data, error } = await supabase
+    
+    // Get the item details
+    const { data: item, error: itemError } = await supabase
       .from('items')
-      .select(`
-        *,
-        images:item_images(*)
-      `)
+      .select('*')
       .eq('id', id)
       .eq('is_active', true)
       .single()
 
-    if (error) {
-      console.error('Error fetching item by ID:', error)
+    if (itemError || !item) {
+      console.error('Error fetching item by ID:', itemError)
       return null
     }
 
-    return data as ItemWithImages
+    // Get all images from the item's folder in storage
+    const { data: files, error: storageError } = await supabase
+      .storage
+      .from('images')
+      .list(id)
+
+    if (storageError) {
+      console.error('Error fetching images from storage:', storageError)
+      return null
+    }
+
+    // Convert storage files to ItemImage format
+    const images = files.map((file, index) => {
+      const { data: { publicUrl } } = supabase
+        .storage
+        .from('images')
+        .getPublicUrl(`${id}/${file.name}`)
+
+      return {
+        id: `${id}-${index}`,
+        image_url: publicUrl,
+        alt_text: item.title,
+        is_primary: index === 0,
+        display_order: index,
+        item_id: id,
+        created_at: file.created_at,
+        updated_at: file.updated_at
+      }
+    })
+
+    return {
+      ...item,
+      images
+    } as ItemWithImages
   } catch (error) {
     console.error('Error in getItemById:', error)
     return null
