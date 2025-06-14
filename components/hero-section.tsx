@@ -6,7 +6,7 @@ export default function HeroSection() {
     <section className="flex items-center justify-center h-[70vh] relative py-16 md:py-24">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/classroom-styled.JPG"
+          src="/images/classroom-styled.jpg"
           alt="教室背景"
           fill
           className="object-cover opacity-90"

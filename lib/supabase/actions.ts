@@ -5,14 +5,14 @@ import type {
   ItemWithImages,
   Testimonial
 } from '@/types/models'
-import { createClient } from './server'
+import { createClient, createPublicClient } from './server'
 
 /**
  * Get all active testimonials ordered by display_order
  */
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     const { data, error } = await supabase
       .from('testimonials')
       .select('*')
@@ -36,7 +36,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
  */
 export async function getItems(type?: 'student_work' | 'teaching_photo' | 'class_photo', limit?: number): Promise<ItemWithImages[]> {
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     
     // Get items
     let query = supabase
@@ -115,7 +115,7 @@ export async function getItems(type?: 'student_work' | 'teaching_photo' | 'class
  */
 export async function getFeaturedItems(type?: 'student_work' | 'teaching_photo' | 'class_photo', limit?: number): Promise<ItemWithImages[]> {
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     
     // Get items
     let query = supabase
